@@ -7,7 +7,7 @@ Uses a counter to divide a clock input signal.
 Clk dividing is a big topic in the field since we have to add logic to a clock line
 which is obvious not good for set up and hold timing constraints.
 
-Likely issues with widths over 32 bits.
+Likely issues with widths over 32 bits. E.g. 64 bits
 
 Here are some resources:
 https://learn.digilentinc.com/Documents/262
@@ -47,9 +47,9 @@ wire [CNT_WIDTH-1:0] cntmax;
 reg [CNT_WIDTH-1:0] cnt;
 
 /**********
- * Glue Logic 
+ * Glue Logic
  **********/
-assign cntmax = CNT_MAX-1; 
+assign cntmax = CNT_MAX-1;
 /**********
  * Synchronous Logic
  **********/
@@ -66,11 +66,11 @@ always @(posedge clk or posedge rst) begin
 			cnt <= {(CNT_WIDTH){1'b0}};
 			new_clk <= ~new_clk;
 		end
-	end	
+	end
 end
 
 /**********
- * Glue Logic 
+ * Glue Logic
  **********/
 /**********
  * Components
