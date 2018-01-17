@@ -10,11 +10,11 @@ TODO
 module mux #(
   parameter BIT_WIDTH = 8, //size of the data that goes into each mux input
   parameter DEPTH = 2,     //number of inputs for the mux
-  parameter SEL_WIDTH = DEPTH, //number of select lines
-
+  parameter SEL_WIDTH = log2(DEPTH) //number of select lines, you can use functions in your module declarations
 )(
-  input [BIT_WIDTH*DEPTH -1 :0]
-
+  input [BIT_WIDTH*DEPTH -1 :0] dataIn,
+  input [SEL_WIDTH - 1:0] select,
+  output [BIT_WIDTH - 1:0] muxout
 );
 /**********
  *  Array Packing Defines
@@ -38,6 +38,11 @@ endfunction
 /**********
  * Glue Logic
  **********/
+
+ `UNPACK_ARRAY
+ always @ (select) begin
+   for
+ end
 /**********
  * Synchronous Logic
  **********/
