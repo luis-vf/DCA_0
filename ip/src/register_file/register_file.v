@@ -78,7 +78,11 @@ endgenerate
  * Synchronous Logic
  **********/
 
-always @(posedge clk) begin
+ initial begin
+   register[0][DATA_WIDTH-1:0] = 0;
+ end
+
+ always @(posedge clk) begin
   if(rst) begin
       for(j=0;j<REG_DEPTH;j=j+1) begin
         register[j][DATA_WIDTH-1:0] = 0;
@@ -88,7 +92,9 @@ always @(posedge clk) begin
     if(wr) begin
       for(j=0;j<REG_DEPTH;j=j+1) begin //loops through the different registers
         if(rw == j) begin //if the select input corresponds to the iterator, write to that register
+          if(j != 0) begin //this makes sure you cannot write to the 0 register
           register[j][DATA_WIDTH-1:0] <= d;
+          end
         end
       end
     end
