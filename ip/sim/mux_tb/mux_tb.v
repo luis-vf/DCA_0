@@ -15,7 +15,11 @@ module mux_tb();
 /**********
  * Internal Signals
 **********/
+<<<<<<< HEAD
+parameter BIT_WIDTH = 4; //size of the data that goes into each mux input
+=======
 parameter BIT_WIDTH = 2; //size of the data that goes into each mux input
+>>>>>>> 039f23e3e25b4a80c9eb9044d0fbd1d2f3b9c783
 parameter DEPTH = 4;     //number of inputs for the mux
 parameter SEL_WIDTH = 2;
 reg [BIT_WIDTH*DEPTH -1 :0] dataIn;
