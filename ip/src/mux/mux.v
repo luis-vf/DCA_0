@@ -8,8 +8,8 @@ TODO
 */
 
 module mux #(
-  parameter BIT_WIDTH = 2, //size of the data that goes into each mux input
-  parameter DEPTH = 4,     //number of inputs for the mux
+  parameter BIT_WIDTH = 8, //size of the data that goes into each mux input
+  parameter DEPTH = 8,     //number of inputs for the mux
   parameter SEL_WIDTH = log2(DEPTH) //number of select lines, you can use functions in your module declarations
 )(
   input [BIT_WIDTH*DEPTH -1 :0] dataIn,
@@ -39,7 +39,7 @@ endfunction
 //array to put in inputs for the mux
 wire [BIT_WIDTH -1:0] tmp [DEPTH-1:0];
 //output for the mux
-reg [BIT_WIDTH-1:0] tmpOut;
+reg [BIT_WIDTH-1:0] tmpOut = 0;
 
 //iterators
 integer j,k,l;
@@ -48,7 +48,7 @@ integer j,k,l;
  **********/
 
  `UNPACK_ARRAY(BIT_WIDTH,DEPTH,tmp,dataIn,U_BLK_0,idx_0)
- always @ (select,dataIn) begin
+ always @ (select,dataIn,tmpOut) begin
  //this loop goes iterates through the number of inputs for the mux
    for(j=0;j < DEPTH; j=j+1) begin
 		//if the select line corresponds to the value at the iterator, the input at that depth is pass through the output
@@ -71,5 +71,7 @@ integer j,k,l;
 /**********
  * Output Combinatorial Logic
  **********/
+generate
   assign muxout = tmpOut;
+endgenerate
 endmodule
